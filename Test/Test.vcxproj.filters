@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="DoubleLinkedList">
+      <UniqueIdentifier>{8aa2cb3e-02c0-454c-9169-3f447539350f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DoubleLinkedList\ManualTest">
+      <UniqueIdentifier>{1f96548f-027f-4204-90fb-4eb32c9e4c6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DoubleLinkedList\AutoTest">
+      <UniqueIdentifier>{57717291-ede7-4a07-a4ee-8e79115b1914}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HashTable">
+      <UniqueIdentifier>{5e466119-5c2b-49ba-a6af-cc64cd877694}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HashTable\AutoTest">
+      <UniqueIdentifier>{45d71cf4-576e-4d0e-b199-f97e5fbee4d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HashTable\ManualTest">
+      <UniqueIdentifier>{e0e637e0-330e-4d3d-8951-601e12ab0031}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ManualTest_ConstIterator.cpp">
+      <Filter>DoubleLinkedList\ManualTest</Filter>
+    </ClCompile>
+    <ClCompile Include="ManualTest_DoubleLinkedList.cpp">
+      <Filter>DoubleLinkedList\ManualTest</Filter>
+    </ClCompile>
+    <ClCompile Include="ManualTest_QuickSort.cpp">
+      <Filter>DoubleLinkedList\ManualTest</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoTest_ConstIterator.cpp">
+      <Filter>DoubleLinkedList\AutoTest</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoTest_DoubleLinkedList.cpp">
+      <Filter>DoubleLinkedList\AutoTest</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoTest_QuickSort.cpp">
+      <Filter>DoubleLinkedList\AutoTest</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoTest_HasuTable.cpp">
+      <Filter>HashTable\AutoTest</Filter>
+    </ClCompile>
+    <ClCompile Include="ManualTest_HashTable.cpp">
+      <Filter>HashTable\ManualTest</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ManualTest_ConstIterator.h">
+      <Filter>DoubleLinkedList\ManualTest</Filter>
+    </ClInclude>
+    <ClInclude Include="ManualTest_DoubleLinkedList.h">
+      <Filter>DoubleLinkedList\ManualTest</Filter>
+    </ClInclude>
+    <ClInclude Include="ManualTest_QuickSort.h">
+      <Filter>DoubleLinkedList\ManualTest</Filter>
+    </ClInclude>
+    <ClInclude Include="TestTool.h">
+      <Filter>DoubleLinkedList</Filter>
+    </ClInclude>
+    <ClInclude Include="ManualTest_HashTable.h">
+      <Filter>HashTable\ManualTest</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
