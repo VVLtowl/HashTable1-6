@@ -8,7 +8,7 @@
 #include "ManualTest_QuickSort.h"
 
 //クイックソートの手動テスト実行
-//#define GT_MANUAL_TEST_SORT
+#define GT_MANUAL_TEST_SORT
 
 namespace ex03_ListSort
 {

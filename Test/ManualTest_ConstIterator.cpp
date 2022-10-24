@@ -7,7 +7,7 @@
 #include "ManualTest_ConstIterator.h"
 
 //双方向リストの手動テスト実行
-//#define GT_MANUAL_TEST_ITERATOR
+#define GT_MANUAL_TEST_ITERATOR
 
 namespace ex02_ConstIterator
 {

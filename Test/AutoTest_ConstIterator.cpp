@@ -8,7 +8,7 @@
 #include "TestTool.h"
 
 //イテレータの単体テスト
-//#define GT_AUTO_TEST_ITERATOR
+#define GT_AUTO_TEST_ITERATOR
 
 namespace ex02_ConstIterator
 {

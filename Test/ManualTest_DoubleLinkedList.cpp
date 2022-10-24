@@ -7,7 +7,7 @@
 #include "ManualTest_DoubleLinkedList.h"
 
 //双方向リストの手動テスト実行
-//#define GT_MANUAL_TEST_LIST
+#define GT_MANUAL_TEST_LIST
 
 namespace ex01_DoubleLinkedList
 {

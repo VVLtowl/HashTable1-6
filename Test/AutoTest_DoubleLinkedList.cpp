@@ -9,7 +9,7 @@
 
 
 //双方向リストの単体テスト実行
-//#define GT_AUTO_TEST_LIST
+#define GT_AUTO_TEST_LIST
 
 namespace ex01_DoubleLinkedList
 {

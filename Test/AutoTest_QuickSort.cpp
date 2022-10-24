@@ -9,7 +9,7 @@
 #include "TestTool.h"
 
 //双方向リストのソートのテスト実行
-//#define GT_AUTO_TEST_LIST_SORT
+#define GT_AUTO_TEST_LIST_SORT
 
 
 /*********************************************************
