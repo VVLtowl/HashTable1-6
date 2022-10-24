@@ -6,48 +6,70 @@
 #include "DoubleLinkedList.h"
 
 template<class KeyType, class ValueType, class HashFunc, int bucketSize>
-template<class ListType,class IteratorType>
+//template<class IteratorType>
 inline bool HashTable<KeyType, ValueType, HashFunc, bucketSize>::Find(
-	const KeyType key, 
-	IteratorType* target, ListType*& targetList)
+	const KeyType& key, const int listID,typename ListIterator* targetIter)const
 {
-	//ハッシュ値に応じるリストに要素がない場合失敗
-	HashFunc hash;
-	int id = hash(key, m_BucketSize);
-	targetList = &m_List[id];
-	if (targetList->Count() == 0)
+	//ハッシュ値に応じるリストに要素がない場合、見つかないとする
+	auto list = &m_List[listID];
+	if (list->Count() == 0)
 	{
+		//要素が見つかなかった場合末尾イテレータを返す
+		if (targetIter != nullptr)
+		{
+			*targetIter = list->CEnd();
+		}
 		return false;
 	}
 
 	//キーに応じる要素がない場合探索失敗
-	auto iter = targetList->Begin();
-	auto end = targetList->CEnd();
+	auto iter = list->CBegin();
+	auto end = list->CEnd();
 	while (iter != end)
 	{
 		if ((*iter).key == key)//要素を見つけた
 		{
-			*target = iter;
+			if (targetIter != nullptr)
+			{
+				*targetIter = iter;
+			}
 			return true;
 		}
 		iter++;
+	}
+
+	//要素が見つかなかった場合末尾イテレータを返す
+	if (targetIter != nullptr)
+	{
+		*targetIter = iter;
 	}
 	return false;
 }
 
 template<class KeyType, class ValueType, class HashFunc, int bucketSize>
-inline bool HashTable<KeyType, ValueType, HashFunc, bucketSize>::Add(KeyType key, ValueType value)
+inline int HashTable<KeyType, ValueType, HashFunc, bucketSize>::GetListID(const KeyType& key)const
 {
-	HashFunc hash;
-	int id = hash(key, m_BucketSize);
-	
-	auto list = &m_List[id];
-	auto end = list->CEnd();
-	return list->Insert(end, { key,value });
+	//ハッシュ値がバケットサイズを超えないようにする
+	return HashFunc()(key) % bucketSize;
 }
 
 template<class KeyType, class ValueType, class HashFunc, int bucketSize>
-inline bool HashTable<KeyType, ValueType, HashFunc, bucketSize>::Remove(KeyType key)
+inline bool HashTable<KeyType, ValueType, HashFunc, bucketSize>::Add(const KeyType& key, ValueType value)
+{
+	//所属するリストの末尾イテレータを取得
+	ListIterator end;
+	int listID = GetListID(key);
+	if (true == Find(key, listID, &end))
+	{
+		//同じキーはもう存在している場合挿入失敗
+		return false;
+	}
+
+	return m_List[listID].Insert(end, { key,value });
+}
+
+template<class KeyType, class ValueType, class HashFunc, int bucketSize>
+inline bool HashTable<KeyType, ValueType, HashFunc, bucketSize>::Remove(const KeyType& key)
 {
 	//空の場合失敗
 	if (0 == Count())
@@ -55,15 +77,13 @@ inline bool HashTable<KeyType, ValueType, HashFunc, bucketSize>::Remove(KeyType 
 		return false;
 	}
 
-
-
 	//二重検索で要素を見つけ出す
-	auto iter = m_List[0].Begin();
-	auto list = &m_List[0];
-	if (true == Find(key, &iter, list))
+	ListIterator iter;
+	int listID = GetListID(key);
+	if (true == Find(key, listID, &iter))
 	{
 		//要素が見つかった場合削除を行う
-		return list->Remove(iter);
+		return m_List[listID].Remove(iter);
 	}
 	else
 	{
@@ -72,7 +92,7 @@ inline bool HashTable<KeyType, ValueType, HashFunc, bucketSize>::Remove(KeyType 
 }
 
 template<class KeyType, class ValueType, class HashFunc, int bucketSize>
-inline bool HashTable<KeyType, ValueType, HashFunc, bucketSize>::TryGetValue(KeyType key, ValueType* pOut)
+inline bool HashTable<KeyType, ValueType, HashFunc, bucketSize>::TryGetValue(const KeyType& key, ValueType* pOut)const
 {
 	//空の場合失敗
 	if (0 == Count())
@@ -81,9 +101,9 @@ inline bool HashTable<KeyType, ValueType, HashFunc, bucketSize>::TryGetValue(Key
 	}
 
 	//二重検索で要素を見つけ出す
-	auto iter = m_List[0].Begin();
-	auto list = &m_List[0];
-	if (true == Find(key, &iter, list))
+	ListIterator iter;
+	int listID = GetListID(key);
+	if (true == Find(key, listID, &iter))
 	{
 		//要素が見つかった場合値をコピーで代入
 		if (pOut != nullptr)
@@ -101,8 +121,8 @@ inline bool HashTable<KeyType, ValueType, HashFunc, bucketSize>::TryGetValue(Key
 template<class KeyType, class ValueType, class HashFunc, int bucketSize>
 inline const int HashTable<KeyType, ValueType, HashFunc, bucketSize>::Count() const
 {
-	int count=0;
-	for (int i = 0; i < m_BucketSize; i++)
+	int count = 0;
+	for (int i = 0; i < bucketSize; i++)
 	{
 		count += m_List[i].Count();
 	}

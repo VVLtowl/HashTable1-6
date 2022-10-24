@@ -8,7 +8,7 @@
 #include "../HashTable/DoubleLinkedList.h"
 #include "../HashTable/HashTable.h"
 #include "../HashTable/ScoreData.h"
-#include <string>
+#include "../HashTable/HashFunc.h"
 
 #pragma region ========== List ==========
 
@@ -350,17 +350,27 @@ inline bool IsSameOrder(const DoubleLinkedList<ScoreData>& list1, const DoubleLi
 #pragma endregion
 
 #pragma region ========== HashTable ==========
+
 /*********************************************************
-* @brief		ハッシュテーブルを表示
-* @param		table: ハッシュテーブル
+* @brief		ハッシュテーブルのフィクスチャ
 ********************************************************/
-template <class KeyType,class ValueType,class HashFunc,int bucketSize>
-inline void PrintHashTable(
-	const HashTable<KeyType,ValueType,HashFunc,bucketSize>& table)
+class HashTableFixture : public ::testing::Test
 {
-	std::cout << "=========== print hashtable ==========" << std::endl;
-	
-	std::cout << "======================================" << std::endl;
-}
+protected:
+	// @brief		テスト用ハッシュテーブル
+	HashTable<int, std::string, HashFunc_IntMod, TEST_BUCKET_SIZE> table;
+
+protected:
+	virtual void SetUp(void)
+	{
+		EXPECT_TRUE(table.Add(1, "val1"));
+		EXPECT_TRUE(table.Add(2, "val2"));
+		EXPECT_TRUE(table.Add(3, "val3"));
+	}
+
+	virtual void TearDown(void)
+	{
+	}
+};
 
 #pragma endregion

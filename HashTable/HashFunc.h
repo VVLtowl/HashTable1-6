@@ -4,6 +4,8 @@
 ********************************************************/
 #pragma once
 
+#define TEST_BUCKET_SIZE (10)
+
 // @brief		引数がない
 class HashFunc_NoArg
 {
@@ -15,10 +17,10 @@ public:
 };
 
 // @brief		キーの型はint、ずっと0をハッシュ値とする
-class HashFunc_IntZero
+class HashFunc_Zero
 {
 public:
-	int operator()(int key, int size)
+	int operator()(int key)
 	{
 		return 0;
 	}
@@ -28,9 +30,9 @@ public:
 class HashFunc_IntKey
 {
 public:
-	int operator()(int key, int size)
+	int operator()(int key)
 	{
-		return 0;
+		return key;
 	}
 };
 
@@ -38,8 +40,8 @@ public:
 class HashFunc_IntMod
 {
 public:
-	int operator()(int key, int size)
+	int operator()(int key)
 	{
-		return key % size;
+		return key % TEST_BUCKET_SIZE;
 	}
 };
